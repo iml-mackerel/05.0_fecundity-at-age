@@ -1,0 +1,15 @@
+name: "Mackerel Fecundity at age"
+output_dir: "docs"
+navbar:
+  title: "Mackerel Fecundity at age"
+  left:
+    - icon: fa-cogs
+      href: 0.0_settings.html
+    - text: "Read and analyze"
+      href: 1.0_faa.html
+
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+    css: styles.css

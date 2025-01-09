@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2024-12-17" />
+
+<title>Fecundity-at-age</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Mackerel Fecundity at age</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="0.0_settings.html">
+    <span class="fa fa-cogs"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="1.0_faa.html">Read and analyze</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Fecundity-at-age</h1>
+<h4 class="date">2024-12-17</h4>
+
+</div>
+
+
+<div id="set-up" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> SET-UP</h1>
+<pre class="r"><code>source(&#39;../../0.0_settings.R&#39;)
+
+this.year &lt;- 2024</code></pre>
+</div>
+<div id="input-data" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Input data</h1>
+<div id="read" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Read</h2>
+<pre class="r"><code># Pelletier data
+pel &lt;- read.csv(&#39;../../data/pelletier.csv&#39;)
+
+# bio data
+new &lt;- T #1st time set to TRUE
+if(new){
+    bio &lt;- get.bio(species=&#39;maquereau&#39;,user=imlp.user,password=imlp.pass)
+    save(bio,file=paste0(&#39;../../Rdata/bio_&#39;,Sys.Date(),&#39;.Rdata&#39;))
+}else{
+    df &lt;- file.info(list.files(&quot;../../Rdata/&quot;, full.names = T,pattern=&quot;bio_&quot;))
+    load(rownames(df)[which.max(df$mtime)])
+}</code></pre>
+</div>
+<div id="transformations" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Transformations</h2>
+<pre class="r"><code>## Pelletier data
+# add variables
+pel$gsi &lt;- with(pel,weight_gonads/weight*100)
+pel$ageplus &lt;- pmin(pel$age,10)
+
+# melt dataframe
+pelm &lt;- pel[,c(&#39;id&#39;,&#39;fecundity&#39;,&#39;length&#39;,&#39;weight&#39;,&#39;age&#39;,&#39;weight_gonads&#39;,&#39;doy&#39;,&#39;gsi&#39;)]
+pelm &lt;- melt(pelm,id=c(&#39;id&#39;,&#39;fecundity&#39;))
+
+## bio data
+# subset
+bio$doy &lt;- lubridate::yday(as.Date(paste(bio$year,bio$month,bio$day,sep=&#39;/&#39;)))
+bio.faa &lt;- bio[bio$matur==5 &amp; 
+               bio$sex==&#39;F&#39; &amp; 
+               bio$agef&gt;0,
+               c(&#39;year&#39;,&#39;month&#39;,&#39;matur&#39;,&#39;sex&#39;,&#39;wgonad&#39;,&#39;agef&#39;,&#39;weight&#39;,&#39;length.frozen&#39;,&#39;doy&#39;)]
+bio.faa &lt;- bio.faa[!is.na(bio.faa$agef) &amp; !is.na(bio.faa$wgonad) &amp; !is.na(bio.faa$weight),]
+names(bio.faa)[c(6,8)] &lt;- c(&#39;age&#39;,&#39;length&#39;)  # length kept to help identify potentially wrong ages
+
+# transform/add
+bio.faa$wgonad &lt;- bio.faa$wgonad*1000 # same unit as pelletier (g)
+bio.faa$weight &lt;- bio.faa$weight*1000
+bio.faa$gsi &lt;- with(bio.faa,wgonad/weight*100)
+bio.faa$ageplus &lt;- pmin(bio.faa$age,10)</code></pre>
+</div>
+</div>
+<div id="pelletier-data" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Pelletier data</h1>
+<div id="plots" class="section level2 tabset" number="3.1">
+<h2 class="tabset"><span class="header-section-number">3.1</span>
+Plots</h2>
+<div id="relationships" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> relationships</h3>
+<pre class="r"><code>ggplot(pelm,aes(y=fecundity,x=value))+
+    geom_point()+
+    facet_wrap(~variable,scale=&#39;free_x&#39;)
+## Warning: Removed 31 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot_pel-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="relationships-log" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> relationships
+(log)</h3>
+<pre class="r"><code>ggplot(pelm,aes(y=fecundity,x=log(value)))+
+    geom_point()+
+    facet_wrap(~variable,scale=&#39;free_x&#39;)
+## Warning: Removed 31 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot_pel_log-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="pairs" class="section level3" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> pairs</h3>
+<pre class="r"><code>d &lt;- pel[,c(&#39;length&#39;,&#39;weight&#39;,&#39;age&#39;,&#39;weight_gonads&#39;,&#39;doy&#39;,&#39;gsi&#39;,&#39;fecundity&#39;)]
+suppressWarnings(chart.Correlation(d, histogram = TRUE, method = &quot;pearson&quot;))</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot_pelpairs-1.png" width="1536" style="display: block; margin: auto;" /></p>
+</div>
+<div id="pairs-log" class="section level3" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> pairs (log)</h3>
+<pre class="r"><code>suppressWarnings(chart.Correlation(log(d), histogram = TRUE, method = &quot;pearson&quot;))</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot_pelpairs_log-1.png" width="1536" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="linear-models" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Linear models</h2>
+<p>Replicate Pelletier analyses. Pelletier found gonad weight to be the
+one with the highest predictive power.</p>
+<pre class="r"><code># original analyses by Pelletier 1986
+models &lt;- ddply(pelm,c(&#39;variable&#39;),function(x){
+    m &lt;- lm(log10(fecundity)~log10(value),data=x)
+    c(variable=unique(as.character(x$variable)),
+      intercept=round(unname(coef(m)[1]),2),
+      slope=round(unname(coef(m)[2]),2),
+      R2=round(summary(m)$r.squared,2),
+      R2.adj=round(summary(m)$r.squared,2),
+      sigma=round(summary(m)$sigma,2),
+      n=nrow(x[!is.na(x$value),]))
+}) 
+
+kable(models[order(models$R2,decreasing = T),])</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">variable</th>
+<th align="left">intercept</th>
+<th align="left">slope</th>
+<th align="left">R2</th>
+<th align="left">R2.adj</th>
+<th align="left">sigma</th>
+<th align="left">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">4</td>
+<td align="left">weight_gonads</td>
+<td align="left">4.34</td>
+<td align="left">0.75</td>
+<td align="left">0.61</td>
+<td align="left">0.61</td>
+<td align="left">0.13</td>
+<td align="left">221</td>
+</tr>
+<tr class="even">
+<td align="left">6</td>
+<td align="left">gsi</td>
+<td align="left">4.77</td>
+<td align="left">0.93</td>
+<td align="left">0.44</td>
+<td align="left">0.44</td>
+<td align="left">0.16</td>
+<td align="left">221</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="left">weight</td>
+<td align="left">2.75</td>
+<td align="left">1.06</td>
+<td align="left">0.36</td>
+<td align="left">0.36</td>
+<td align="left">0.17</td>
+<td align="left">222</td>
+</tr>
+<tr class="even">
+<td align="left">5</td>
+<td align="left">doy</td>
+<td align="left">13.45</td>
+<td align="left">-3.48</td>
+<td align="left">0.36</td>
+<td align="left">0.36</td>
+<td align="left">0.17</td>
+<td align="left">222</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">length</td>
+<td align="left">-1.84</td>
+<td align="left">2.93</td>
+<td align="left">0.26</td>
+<td align="left">0.26</td>
+<td align="left">0.18</td>
+<td align="left">222</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="left">age</td>
+<td align="left">5.38</td>
+<td align="left">0.46</td>
+<td align="left">0.23</td>
+<td align="left">0.23</td>
+<td align="left">0.19</td>
+<td align="left">193</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="outlier-removal" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Outlier removal</h2>
+<pre class="r"><code># age
+pelo &lt;- pel[pel$age!=15 &amp; !is.na(pel$age),]
+
+# gonad weight
+quantile(bio[bio$matur==5 &amp; !is.na(bio$matur) &amp; !is.na(bio$wgonad),&#39;wgonad&#39;]*1000,c(0.005,0.995))
+##     0.5%    99.5% 
+##  13.8002 181.9179
+pelo &lt;- pelo[pelo$weight_gonads&lt;200,] # weights above 200g are unrealistic
+
+nrow(pelo)
+## [1] 188</code></pre>
+</div>
+<div id="new-model" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> New model</h2>
+<div id="fit" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Fit</h3>
+<p>Gonad weight and age are correlated, and therefore fecundity is
+predicted in function of age + GSI. Mathieu Boudreau tested a range of
+models. See script in depricated folder. Here I only retained the
+selected one to use for model input. Selected robust regression because
+less weight to lower fecundity values (individuals for which spawning
+might have started already).</p>
+<pre class="r"><code>this.m &lt;- robust::lmRob(log(fecundity) ~ log(gsi) + log(ageplus), data = pelo)
+
+car::vif(this.m) # very low
+##     log(gsi) log(ageplus) 
+##     1.022523     1.022523</code></pre>
+</div>
+<div id="model-info" class="section level3 tabset" number="3.4.2">
+<h3 class="tabset"><span class="header-section-number">3.4.2</span>
+Model info</h3>
+<div id="summary" class="section level4" number="3.4.2.1">
+<h4><span class="header-section-number">3.4.2.1</span> Summary</h4>
+<pre class="r"><code>summary(this.m)
+## 
+## Call:
+## robust::lmRob(formula = log(fecundity) ~ log(gsi) + log(ageplus), 
+##     data = pelo)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.31019 -0.20982  0.02055  0.18519  0.68402 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  10.80225    0.21618  49.969  &lt; 2e-16 ***
+## log(gsi)      0.71380    0.08521   8.377 1.36e-14 ***
+## log(ageplus)  0.41388    0.05663   7.308 8.00e-12 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2842 on 184 degrees of freedom
+## Multiple R-Squared: 0.4176 
+## 
+## Test for Bias:
+##             statistic  p-value
+## M-estimate      7.026 0.071064
+## LS-estimate    15.124 0.001713
+## 1 observation effacée parce que manquante</code></pre>
+</div>
+<div id="validation-1" class="section level4" number="3.4.2.2">
+<h4><span class="header-section-number">3.4.2.2</span> Validation 1</h4>
+<pre class="r"><code>
+plot(this.m, which.plots = c(1,2,5,6) )</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot_modvalid1-1.png" width="384" style="display: block; margin: auto;" /><img src="1.0_faa_files/figure-html/plot_modvalid1-2.png" width="384" style="display: block; margin: auto;" /><img src="1.0_faa_files/figure-html/plot_modvalid1-3.png" width="384" style="display: block; margin: auto;" /><img src="1.0_faa_files/figure-html/plot_modvalid1-4.png" width="384" style="display: block; margin: auto;" /></p>
+</div>
+<div id="validation-2" class="section level4" number="3.4.2.3">
+<h4><span class="header-section-number">3.4.2.3</span> Validation 2</h4>
+<pre class="r"><code>p &lt;-ggeffects::ggeffect(this.m) 
+grid.arrange(plot(p[[1]]),plot(p[[2]]),nrow=1)</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot_mod_valid2-1.png" width="864" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>
+va2a &lt;- ggeffects::predict_response(this.m, terms = &quot;gsi&quot;)
+## Model has log-transformed response. Back-transforming predictions to original response scale. Standard errors are still on the transformed scale.
+v1&lt;- ggplot(va2a, aes(x, predicted/1000)) +
+  geom_line() +
+  geom_ribbon(aes(ymin = conf.low/1000, ymax = conf.high/1000), alpha = 0.1)+
+    geom_point(data=pelo, aes(x=gsi, y=fecundity/1000))+
+    scale_y_continuous(trans=&quot;log10&quot;) + scale_x_continuous(trans=&quot;log10&quot;)+
+    labs(x=&quot;Indice gonado-somatique\nGonadosomatique index (%)&quot;, y=&quot;Fécondité | Fecundity (&#39;000)&quot;)
+
+va2b &lt;- ggeffects::predict_response(this.m, terms = &quot;ageplus&quot;)
+## Model has log-transformed response. Back-transforming predictions to original response scale. Standard errors are still on the transformed scale.
+v2&lt;- ggplot(va2b, aes(x, predicted/1000)) +
+  geom_line() +
+  geom_ribbon(aes(ymin = conf.low/1000, ymax = conf.high/1000), alpha = 0.1)+
+    geom_point(data=pelo, aes(x=ageplus, y=fecundity/1000))+
+    scale_y_continuous(trans=&quot;log10&quot;) + scale_x_continuous(trans=&quot;log10&quot;)+
+    labs(x=&quot;Âge | Age&quot;, y=&quot;Fécondité | Fecundity (&#39;000)&quot;)
+ggarrange(v1,v2,nrow=1, align=&quot;hv&quot;)
+## Warning in scale_y_continuous(trans = &quot;log10&quot;): log-10 transformation introduced infinite values.
+## Warning in scale_x_continuous(trans = &quot;log10&quot;): log-10 transformation introduced infinite values.
+## Warning in scale_y_continuous(trans = &quot;log10&quot;): log-10 transformation introduced infinite values.
+## log-10 transformation introduced infinite values.
+## Warning in scale_x_continuous(trans = &quot;log10&quot;): log-10 transformation introduced infinite values.
+## Warning: Removed 1 row containing missing values or values outside the scale range (`geom_point()`).
+## Removed 1 row containing missing values or values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot_mod_valid2-2.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+</div>
+<div id="bio-data" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Bio data</h1>
+<div id="outlier-removal-1" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Outlier removal</h2>
+<pre class="r"><code>nrow(bio.faa)
+## [1] 5470
+
+# month (no &quot;pre-spawners&quot; after July)
+bio.faa &lt;- bio.faa[bio.faa$month &lt;8,]
+
+# remove fish with ages that cannot be trusted, based on their length (see 3.0_caa))
+bio.faa &lt;- bio.faa[bio.faa$age&lt;18,]      
+bio.faa &lt;- ddply(bio.faa,c(&#39;age&#39;),transform,outlierAL=outlier(length,coef=3))  
+bio.faa[is.na(bio.faa$outlierAL),&#39;outlierAL&#39;] &lt;- FALSE
+
+# incorrect weights
+bio.faa &lt;- bio.faa[bio.faa$weight&gt;0,]
+
+lw &lt;- lm(log(bio.faa$weight)~log(bio.faa$length))
+bio.faa[!is.na(bio.faa$length),&#39;outlierLW&#39;] &lt;- abs(residuals(lw))&gt;sd(residuals(lw))*3
+bio.faa[is.na(bio.faa$outlierLW),&#39;outlierLW&#39;] &lt;- FALSE
+
+# gsi
+bio.faa &lt;- bio.faa[bio.faa$gsi&lt;33,] # one with gsi =35% (more than one third of this fish is gonad...)
+bio.faa &lt;- bio.faa[bio.faa$gsi&gt;3.4,]  # smaller than ever observed for age 2. presumably wrong maturity stage</code></pre>
+</div>
+<div id="plots-for-outliers" class="section level2 tabset" number="4.2">
+<h2 class="tabset"><span class="header-section-number">4.2</span> Plots
+for outliers</h2>
+<div id="outliers-al" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> outliers AL</h3>
+<pre class="r"><code>ggplot(bio.faa,aes(x=age,y=length,col=outlierAL))+geom_point()
+## Warning: Removed 7 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot%20out_al-1.png" width="864" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>bio.faa &lt;- bio.faa[!bio.faa$outlierAL,]
+bio.faa$outlierAL &lt;- NULL</code></pre>
+</div>
+<div id="outliers-lw" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> outliers LW</h3>
+<pre class="r"><code>ggplot(bio.faa,aes(x=log(length),y=log(weight),col=outlierLW))+geom_point()
+## Warning: Removed 7 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot%20out_lw-1.png" width="864" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>bio.faa &lt;- bio.faa[!bio.faa$outlierLW,]
+bio.faa$outlierLW &lt;- NULL</code></pre>
+</div>
+<div id="outliers-gsi" class="section level3" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> outliers GSI</h3>
+<pre class="r"><code>ggplot(bio.faa,aes(x=as.factor(ageplus),y=gsi))+geom_boxplot()</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot%20out_gsi-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="comparison-pelletier" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Comparison
+Pelletier</h2>
+<pre class="r"><code>names(bio.faa)[which(names(bio.faa)==&#39;wgonad&#39;)] &lt;- &#39;weight_gonads&#39;
+bio.faa$data &lt;- &#39;bio&#39;
+pel$data &lt;- &#39;pelletier&#39;
+cols &lt;- c(&#39;weight&#39;,&#39;age&#39;,&#39;weight_gonads&#39;,&#39;gsi&#39;,&#39;data&#39;)
+comb &lt;- rbind(bio.faa[,cols],pel[,cols])
+comb$id &lt;- 1:nrow(comb)
+
+combm &lt;- melt(comb,id=c(&#39;id&#39;,&#39;data&#39;))
+ggplot(combm,aes(x=data,y=value,col=data))+geom_boxplot()+facet_wrap(~variable,scale=&#39;free_y&#39;)
+## Warning: Removed 31 rows containing non-finite outside the scale range (`stat_boxplot()`).</code></pre>
+<p><img src="1.0_faa_files/figure-html/data_comp-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="which-months-to-include" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Which months to
+include?</h2>
+<p>There is a clear relationship between fecundity and doy. Cannot add
+variable in model (correlated with gsi). If there are more samples from
+early on, might result in overestimate of fecundity.</p>
+<p>Kept july samples (no correct for doy either) because they are rare
+and have negligible impact.</p>
+<div id="plots-1" class="section level3 tabset" number="4.4.1">
+<h3 class="tabset"><span class="header-section-number">4.4.1</span>
+Plots</h3>
+<div id="gsi-vs-month" class="section level4" number="4.4.1.1">
+<h4><span class="header-section-number">4.4.1.1</span> gsi vs month</h4>
+<pre class="r"><code>n &lt;- ddply(bio.faa,c(&#39;ageplus&#39;,&#39;month&#39;),summarise,n=length(year))
+ggplot(bio.faa,aes(x=as.factor(month),y=gsi))+
+    geom_boxplot(aes(fill=as.factor(month)))+
+    geom_text(data=n,aes(y=Inf,label=n),vjust=1.1)+
+    facet_wrap(~ageplus)</code></pre>
+<p><img src="1.0_faa_files/figure-html/pred_months-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sample-date-over-time" class="section level4" number="4.4.1.2">
+<h4><span class="header-section-number">4.4.1.2</span> sample date over
+time</h4>
+<pre class="r"><code>dates &lt;- ddply(bio.faa,c(&#39;year&#39;),summarise,mu=mean(doy),low=mu-2*sd(doy),high=mu+2*sd(doy))
+ggplot(dates,aes(x=year,y=mu))+geom_point()+geom_errorbar(aes(ymin=low,ymax=high))+
+    labs(y=&#39;Average sample date&#39;,x=&#39;Year&#39;)</code></pre>
+<p><img src="1.0_faa_files/figure-html/pred_year-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+</div>
+<div id="predictions" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Predictions</h1>
+<div id="predict" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Predict</h2>
+<p>See script test prediction to help understand the approach taken
+here. se is only used to help weigh the smoothing (but is relative
+because various shrinkage factors can be used).</p>
+<pre class="r"><code>faa &lt;- ddply(bio.faa,c(&#39;year&#39;,&#39;ageplus&#39;),summarise,n=length(gsi),gsi.sd=sd(gsi),gsi=mean(gsi))
+
+faa$fec &lt;- exp(predict(this.m,faa))
+faa[!is.na(faa$gsi.sd),&#39;fec.se&#39;] &lt;- exp(predict(this.m,data.frame(ageplus=faa$ageplus,gsi=faa$gsi.sd)))
+faa[!is.na(faa$gsi.sd),&#39;low&#39;] &lt;- exp(predict(this.m,data.frame(ageplus=faa$ageplus,gsi=pmax(faa$gsi-2*faa$gsi.sd,0.1))))
+faa[!is.na(faa$gsi.sd),&#39;high&#39;] &lt;- exp(predict(this.m,data.frame(ageplus=faa$ageplus,gsi=pmax(faa$gsi+2*faa$gsi.sd,0.1))))
+
+minf &lt;- 5 # number of fish should be higher than this</code></pre>
+</div>
+<div id="plots-2" class="section level2 tabset" number="5.2">
+<h2 class="tabset"><span class="header-section-number">5.2</span>
+Plots</h2>
+<div id="faa-raw" class="section level3" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> FAA raw</h3>
+<pre class="r"><code>ggplot(faa[faa$n&gt;=minf,],aes(x=year,y=fec/1000))+
+    geom_point()+
+    geom_line()+
+    facet_wrap(~ageplus) + xlab(&quot;Année | Year&quot;) + ylab(&quot;Fécondité | Fecundity (&#39;000)&quot;)</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot_faaraw-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="faa-vs-pelletier" class="section level3" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> FAA vs
+pelletier</h3>
+<pre class="r"><code>pelfaa &lt;- ddply(pelo[!is.na(pelo$ageplus),],c(&#39;ageplus&#39;),summarise,fec=mean(fecundity),fec.se=sd(fecundity))
+ggplot(faa[faa$n&gt;=minf,])+
+    geom_rect(data=pelfaa,aes(ymin=fec-2*fec.se,ymax=fec+2*fec.se,xmin=-Inf,xmax=Inf),fill=&#39;orange&#39;,alpha=0.5)+
+    geom_hline(data=pelfaa,aes(yintercept=fec),col=&#39;orange&#39;)+
+    geom_point(aes(x=year,y=fec))+
+    geom_line(aes(x=year,y=fec))+
+    facet_wrap(~ageplus)+
+    labs(y=&#39;Fecundity&#39;,x=&#39;Year&#39;)</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot_faarawpel-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="predicted-fec-gsi" class="section level3" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> predicted
+fec-gsi</h3>
+<pre class="r"><code>ggplot(faa,aes(x=gsi,y=fec))+
+    geom_point(data=pelo,aes(y=fecundity),col=&#39;orange&#39;)+
+    geom_point()+
+    labs(y=&#39;Fecundity&#39;,x=&#39;GSI&#39;)
+## Warning: Removed 1 row containing missing values or values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot_predfecgsi-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="predicted-fec-age" class="section level3" number="5.2.4">
+<h3><span class="header-section-number">5.2.4</span> predicted
+fec-age</h3>
+<pre class="r"><code>ggplot(faa,aes(x=as.factor(ageplus),y=fec))+
+    geom_boxplot(data=pelo[!is.na(pelo$ageplus),],aes(y=fecundity,group=ageplus),fill=&#39;orange&#39;,col=&#39;darkgoldenrod&#39;)+
+    geom_point()+
+    labs(y=&#39;Fecundity&#39;,x=&#39;Age&#39;)</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot_predfecage-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="n" class="section level3" number="5.2.5">
+<h3><span class="header-section-number">5.2.5</span> n</h3>
+<pre class="r"><code>ggplot(faa,aes(x=year,y=as.factor(ageplus)))+
+    geom_tile(aes(fill=n))+
+    geom_text(aes(label = n), size = 2)+
+    scale_fill_gradient(low = &quot;orange&quot;, high = &quot;darkred&quot;) + 
+    labs(y=&#39;Age&#39;,x=&#39;Year&#39;)+
+    scale_x_continuous(expand = c(0,0))+
+    scale_y_discrete(expand=c(0,0))</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot_n-1.png" width="864" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gsi" class="section level3" number="5.2.6">
+<h3><span class="header-section-number">5.2.6</span> GSI</h3>
+<p>Check underlying trend</p>
+<pre class="r"><code>ggplot(bio.faa,aes(x=year,y=gsi))+
+    geom_boxplot(aes(group=year))+
+    geom_smooth()+
+    facet_wrap(~ageplus)+
+    labs(x=&#39;Année | Year&#39;,y=&#39;Indice gonado-somatique\nGonadosomatique index (%)&#39;)
+## `geom_smooth()` using method = &#39;gam&#39; and formula = &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<p><img src="1.0_faa_files/figure-html/plot_gsiyear-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="fill-and-smooth" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Fill and smooth</h1>
+<div id="fit-model" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> fit model</h2>
+<pre class="r"><code>faam &lt;- faa[faa$n&gt;=minf,]
+faam$cv &lt;- with(faam,fec.se/fec)
+names(faam)[which(names(faam)==&#39;ageplus&#39;)] &lt;- &#39;age&#39;
+
+all &lt;- expand.grid(year=1968:this.year, age=min(faam$age):max(faam$age))
+faam &lt;- merge(all, faam, all.x = TRUE)
+
+faa.fit &lt;- armatrix.fit(year=faam$year,age=faam$age,x=faam$fec,cv=faam$cv,shrink.cv = 0.5)  # shrink reduces cv variability, not overall uncertainty
+## Warning in armatrix.fit(year = faam$year, age = faam$age, x = faam$fec, : cvs equal to 0/NA replaced by value of historic 95% quantile
+faa.fit  # convergence ok
+
+save(faa.fit,file=paste0(&quot;../../Rdata/fit.armatrix/&quot;,this.year,&quot;base_cv1shrink0.5.Rdata&quot;))
+#save(faa.fit,file=paste0(&quot;Rdata/fit.armatrix/&quot;,this.year,&quot;base_cv4shrink0.5.Rdata&quot;))
+</code></pre>
+</div>
+<div id="plots-3" class="section level2 tabset" number="6.2">
+<h2 class="tabset"><span class="header-section-number">6.2</span>
+plots</h2>
+<div id="waa" class="section level3" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> waa</h3>
+<pre class="r"><code>armatrix.waa(faa.fit,ylab=&#39;Fecundity&#39;)+scale_color_viridis_d()</code></pre>
+<p><img src="1.0_faa_files/figure-html/faa_final-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="predicted-obs" class="section level3" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Predicted obs</h3>
+<pre class="r"><code>armatrix.predobs(faa.fit,scale=&#39;free&#39;,ncol=3)
+## Warning: Removed 283 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="1.0_faa_files/figure-html/faa_predobs-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="predicted" class="section level3" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> Predicted</h3>
+<pre class="r"><code>armatrix.pred(faa.fit,scale=&#39;free&#39;,ncol=3)</code></pre>
+<p><img src="1.0_faa_files/figure-html/faa_pred-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="resid-bubble" class="section level3" number="6.2.4">
+<h3><span class="header-section-number">6.2.4</span> Resid bubble</h3>
+<pre class="r"><code>armatrix.res(faa.fit)
+## Warning: Removed 283 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="1.0_faa_files/figure-html/faa_res-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="resid-dot" class="section level3" number="6.2.5">
+<h3><span class="header-section-number">6.2.5</span> Resid dot</h3>
+<pre class="r"><code>#armatrix.res2(faa.fit)
+#to make the plot bilingual
+d &lt;- faa.fit$output
+    d$cohort &lt;- with(d, year - age)
+    p1 &lt;- ggplot(d, aes(x = year, y = res)) + geom_text(aes(label = age), 
+        size = 2) + geom_hline(yintercept = 0, linetype = &quot;dashed&quot;) + 
+        labs(y = &quot;&quot;, x = &quot;Année | Year&quot;) + geom_smooth() +scale_x_continuous(breaks=seq(1970,2020,5), limits=c(1970, this.year))
+    p2 &lt;- ggplot(d, aes(x = cohort, y = res)) + geom_point(size = 1) + 
+        geom_hline(yintercept = 0, linetype = &quot;dashed&quot;) + labs(y = &quot;&quot;, 
+        x = &quot;Cohorte | Cohort&quot;) + geom_smooth()+scale_x_continuous(breaks=seq(1970,2020,5), limits=c(1970, this.year))
+    p3 &lt;- ggplot(d, aes(x = age, y = res)) + geom_point(size = 1) + 
+        geom_hline(yintercept = 0, linetype = &quot;dashed&quot;) + labs(y = &quot;&quot;, 
+        x = &quot;Âge | Age&quot;) +scale_x_continuous(breaks=1:10)
+    p4 &lt;- ggplot(d, aes(x = pred_exp, y = res)) + geom_point(size = 1) + 
+        geom_hline(yintercept = 0, linetype = &quot;dashed&quot;) + labs(y = &quot;&quot;, 
+        x = &quot;Prédiction | Predicted&quot;)
+    grid.arrange(p1, p2, p3, p4, ncol = 2, left = &quot;Résidus standardisés | Standardized residuals&quot;)
+## Warning: Removed 283 rows containing non-finite outside the scale range (`stat_smooth()`).
+## Warning: Removed 283 rows containing missing values or values outside the scale range (`geom_text()`).
+## Warning: Removed 304 rows containing non-finite outside the scale range (`stat_smooth()`).
+## Warning: Removed 304 rows containing missing values or values outside the scale range (`geom_point()`).
+## Warning: Removed 283 rows containing missing values or values outside the scale range (`geom_point()`).
+## Removed 283 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="1.0_faa_files/figure-html/faa_res2-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="effects" class="section level3" number="6.2.6">
+<h3><span class="header-section-number">6.2.6</span> effects</h3>
+<pre class="r"><code>armatrix.effects(faa.fit)</code></pre>
+<p><img src="1.0_faa_files/figure-html/faa_effects-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cvs" class="section level3" number="6.2.7">
+<h3><span class="header-section-number">6.2.7</span> cvs</h3>
+<p>Only interesting if shrink argument is used.</p>
+<pre class="r"><code>armatrix.cvs(faa.fit,scale=&#39;free&#39;,ncol=3)
+## Warning: Removed 43 rows containing missing values or values outside the scale range (`geom_line()`).</code></pre>
+<p><img src="1.0_faa_files/figure-html/faa_cv-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="save-results" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Save results</h1>
+<p>Predict fecundity age 1 fish based on the predicted ratio of
+fecundity age 2 / age 1 from pelletier</p>
+<pre class="r"><code>faaf &lt;- faa.fit$output
+faaf &lt;- faaf[,c(1:2,9)]
+names(faaf)[3] &lt;- &#39;fecundity&#39;
+faafm &lt;- dcast(faaf,year~age,value.var = &#39;fecundity&#39;)
+
+# add age 1
+m &lt;-  as.numeric(models[models$variable==&#39;age&#39;,-1])
+fec1fec2 &lt;- (10^(m[1]+log10(1)*m[2]))/(10^(m[1]+log10(2)*m[2]))
+fec1fec2
+## [1] 0.7269863
+
+faafm &lt;- cbind(year=faafm$year,&#39;1&#39;=faaf[faaf$age==2,&#39;fecundity&#39;]*fec1fec2,faafm[,2:ncol(faafm)])
+faafm[,2:ncol(faafm)] &lt;- round(faafm[,2:ncol(faafm)],0)
+
+write.csv(faafm, file=paste0(&#39;../../csv/&#39;,this.year,&#39;/faa_&#39;,this.year,&#39;_base_cv1shrink0.5.csv&#39;),row.names = FALSE)
+#write.csv(faafm, file=paste0(&#39;csv/faa_&#39;,this.year,&#39;_sens_cv4shrink0.5.csv&#39;),row.names = FALSE)
+
+p &lt;- ggplot(melt(faafm,id=&#39;year&#39;), aes(x = year, y = value/1000, col = variable))+ 
+    geom_line()+
+    labs(x = &#39;Année | Year&#39;, y = &#39;Fécondité (milliers)\nFecundity (thousands)&#39;, col = &#39;Âge | Age&#39;)+
+    scale_x_continuous(expand = c(0, 0))+
+    scale_color_viridis_d()
+ggsave(filename = paste0(&#39;../../img/&#39; ,this.year,&#39;/faa&#39;,this.year,&#39;BI.png&#39;),plot = p,units = &#39;cm&#39;,height = 8,width = 16)
+
+
+p  + labs(x = &#39;Year&#39;, y = &#39;Fecundity (thousands)&#39;, col = &#39;Age&#39;)</code></pre>
+<p><img src="1.0_faa_files/figure-html/faa_result-1.png" width="864" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(filename = paste0(&#39;../../img/&#39; ,this.year,&#39;/faa&#39;,this.year,&#39;.png&#39;),units = &#39;cm&#39;,height = 8,width = 14)
+</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
